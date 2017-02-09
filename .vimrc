@@ -106,4 +106,5 @@ set gdefault
 set smartcase
 set linebreak
 set guitablabel=
+let g:session_autosave = 'no'
 
