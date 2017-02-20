@@ -13,7 +13,7 @@ cd ~
 
 # pull down this repo
 git init .
-git remote add git@github.com:durka/dotfiles
+git remote add origin git@github.com:durka/dotfiles
 git pull origin master
 
 # install Vundle
