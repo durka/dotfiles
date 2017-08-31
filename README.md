@@ -3,6 +3,7 @@
 ## Contents
 
 - `.vimrc`: Vim configuration with some plugins I use, probably a bunch more that I don't use, and some settings I've accumulated. Uses Vundle.
+- `.tmux.conf`: small tmux config. Pretty much all from [here](http://www.hamvocke.com/blog/a-guide-to-customizing-your-tmux-conf/).
 - `burka_Xmodmap`: my idiosyncratic keyboard overlay which uses Caps Lock as a modifier for typing characters useful when programming.
 
 ## To install
