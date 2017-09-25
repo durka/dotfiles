@@ -108,4 +108,7 @@ set smartcase
 set linebreak
 set guitablabel=
 let g:session_autosave = 'no'
+set ruler
+set tabpagemax=100
+set mouse=a
 
