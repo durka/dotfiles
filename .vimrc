@@ -47,6 +47,15 @@ syntax on
 colorscheme desert
 highlight clear SignColumn
 set iskeyword-=: " fix python syntax highlighting
+if has("osx")
+    function! VisualSay() range
+        let n = @n
+        silent! normal gv"ny
+        echo system("say \"" . @n . "\" &")
+        let @n = n
+    endfunction
+    vnoremap <silent> S :call VisualSay()<CR>
+endif
 
 " random mapping
 " swap current word with next (cursor moves with word)
