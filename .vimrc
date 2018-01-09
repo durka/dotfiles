@@ -96,6 +96,7 @@ let g:GPGDefaultRecipients = ['Alex Burka']
 " for rust
 set hidden
 au BufNewFile,BufRead Cargo.toml set ft=config
+au BufNewFile,BufRead Cargo.lock set ft=config
 au FileType rust compiler cargo
 let g:ycm_rust_src_path = '/Users/alex/Programming/rust/rust/src'
 
