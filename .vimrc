@@ -36,6 +36,7 @@ Bundle 'phildawes/racer'
 Bundle 'vim-scripts/lojban'
 Plugin 'bhurlow/vim-parinfer'
 Plugin 'Valloric/YouCompleteMe'
+Plugin 'kopischke/vim-fetch'
 
 " for vundle and vim-latex
 filetype plugin indent on
