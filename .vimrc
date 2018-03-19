@@ -50,6 +50,7 @@ syntax on
 colorscheme desert
 highlight clear SignColumn
 set iskeyword-=: " fix python syntax highlighting
+set mouse=a
 if has("osx")
     function! VisualSay() range
         let n = @n
