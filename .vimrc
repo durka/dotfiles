@@ -37,6 +37,9 @@ Bundle 'vim-scripts/lojban'
 Plugin 'bhurlow/vim-parinfer'
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'kopischke/vim-fetch'
+Plugin 'goldfeld/ctrlr.vim'
+Plugin 'kana/vim-textobj-user'
+Plugin 'rhysd/vim-textobj-anyblock'
 
 " for vundle and vim-latex
 filetype plugin indent on
