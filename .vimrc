@@ -46,6 +46,7 @@ syntax on
 colorscheme desert
 highlight clear SignColumn
 set iskeyword-=: " fix python syntax highlighting
+set mouse=a
 
 " random mapping
 " swap current word with next (cursor moves with word)
