@@ -8,6 +8,7 @@ while [[ $# -gt 0 ]]; do
     case $key in
         -h)
             echo "$0 [-n N] [-N] file"
+            exit
             ;;
         -n)
             n="$1"
