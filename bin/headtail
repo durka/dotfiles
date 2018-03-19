@@ -1,0 +1,34 @@
+#!/usr/bin/env bash
+
+n=5
+file=/dev/stdin
+while [[ $# -gt 0 ]]; do
+    key="$1"
+    shift
+    case $key in
+        -h)
+            echo "$0 [-n N] [-N] file"
+            ;;
+        -n)
+            n="$1"
+            shift
+            ;;
+        -*)
+            n="${key:1}"
+            ;;
+        *)
+            file="$key"
+            ;;
+    esac
+done
+
+contents=$(< $file)
+len=$(echo "$contents" | wc -l | awk '{print $1}')
+if (($len <= ($n * 2))); then
+    echo "$contents"
+else
+    echo "$contents" | head -$n
+    echo "[... $(($len - ($n * 2))) lines omitted ...]"
+    echo "$contents" | tail -$n
+fi
+
