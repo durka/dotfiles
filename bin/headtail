@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+# A tiny shell utility that does both `head` and `tail`
+
 n=5
 file=/dev/stdin
 while [[ $# -gt 0 ]]; do
@@ -7,7 +9,7 @@ while [[ $# -gt 0 ]]; do
     shift
     case $key in
         -h)
-            echo "$0 [-n N] [-N] file"
+            echo "$(basename $0) [-n N] [-N] file"
             exit
             ;;
         -n)
