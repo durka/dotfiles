@@ -36,6 +36,7 @@ Bundle 'phildawes/racer'
 Bundle 'vim-scripts/lojban'
 Plugin 'bhurlow/vim-parinfer'
 Plugin 'Valloric/YouCompleteMe'
+Plugin 'kopischke/vim-fetch'
 
 " for vundle and vim-latex
 filetype plugin indent on
@@ -47,6 +48,15 @@ colorscheme desert
 highlight clear SignColumn
 set iskeyword-=: " fix python syntax highlighting
 set mouse=a
+if has("osx")
+    function! VisualSay() range
+        let n = @n
+        silent! normal gv"ny
+        echo system("say \"" . @n . "\" &")
+        let @n = n
+    endfunction
+    vnoremap <silent> S :call VisualSay()<CR>
+endif
 
 " random mapping
 " swap current word with next (cursor moves with word)
@@ -96,6 +106,7 @@ let g:GPGDefaultRecipients = ['Alex Burka']
 " for rust
 set hidden
 au BufNewFile,BufRead Cargo.toml set ft=config
+au BufNewFile,BufRead Cargo.lock set ft=config
 au FileType rust compiler cargo
 let g:ycm_rust_src_path = '/Users/alex/Programming/rust/rust/src'
 
@@ -109,4 +120,7 @@ set smartcase
 set linebreak
 set guitablabel=
 let g:session_autosave = 'no'
+set ruler
+set tabpagemax=100
+set mouse=a
 
