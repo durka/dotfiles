@@ -1,8 +1,6 @@
 #!/usr/bin/env bash
 
-calc() {
-    printf "%.${2:-1}f" $(bc -l <<<"$1")
-}
+source $(dirname $0)/utilities.bash
 
 parse() {
     local data=$(grep "^$1:" <<<"$2")
@@ -16,13 +14,10 @@ parse() {
         local used=$(awk '{print $3}' <<<"$data")
     fi
 
-    local usegb=$(calc "$used/1024")
-    local totgb=$(calc "$total/1024")
-
-    echo -n "Usage: $usegb/$totgb GiB\${goto 270}$(printf "%02s" $(calc "$usegb/$totgb*100" 0))\${goto 291}%"
+    echo -n "Usage: \${color}$(si_prefix $used)/$(si_prefix $total)iB\${goto 270}$(printf "%02s" $(calc "$usegb/$totgb*100" 0))\${goto 291}%\${color grey}"
 }
 
-data=$(free -m)
+data=$(free -k)
 
 echo -n '${color grey}RAM '
 parse Mem "$data"
