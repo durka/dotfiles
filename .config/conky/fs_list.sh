@@ -2,7 +2,11 @@
 
 source $(dirname $0)/utilities.bash
 
-for line in $(mount | awk '/ext4|udisks2|sshfs/ {print $1 "_" $3 "_" $5}')
+throttle 10
+
+names=()
+
+for line in $(mount | awk '/ext4|vfat|fuseblk|udisks2|sshfs/ {print $1 "_" $3 "_" $5}')
 do
     IFS='_' read -ra parts <<<"$line"
     dev=${parts[0]}
@@ -14,6 +18,16 @@ do
         name=${parts[1]}
     else
         name=$(lsblk -no LABEL $dev)
+        if [[ "x$name" == "x" ]]; then
+            name=$mp
+        fi
+    fi
+
+    if [[ " ${names[@]} " =~ " ${name} " ]]; then
+        # did this one already (FS mounted at two places)
+        continue
+    else
+        names+=($name)
     fi
 
     df=$(df -h $mp --output=used,size | tail -1)
