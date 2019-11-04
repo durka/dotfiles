@@ -2,7 +2,7 @@
 
 source $(dirname $0)/utilities.bash
 
-for line in $(ip addr | awk '-F[ /]+' '/(enp|wlp)[^ ]+$/ {print $NF "___" $3}')
+for line in $(ip addr | awk '-F[ /]+' '/(enp|wlp|ppp)[^ ]+$/ {print $NF "___" $3}')
 do
     [[ "$line" =~ (.*)___(.*) ]] || continue
     if=${BASH_REMATCH[1]}
