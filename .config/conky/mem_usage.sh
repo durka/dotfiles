@@ -14,7 +14,7 @@ parse() {
         local used=$(awk '{print $3}' <<<"$data")
     fi
 
-    echo -n "Usage: \${color}$(si_prefix $used)/$(si_prefix $total)iB\${goto 270}$(printf "%02s" $(calc "$usegb/$totgb*100" 0))\${goto 291}%\${color grey}"
+    echo -n "Usage: \${color}$(si_prefix $used)/$(si_prefix $total)iB\${goto 270}$(printf "%02s" $(calc "$used/$total*100" 0))\${goto 291}%\${color grey}"
 }
 
 data=$(free -k)
