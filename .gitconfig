@@ -25,3 +25,5 @@
     show-merge = "!sh -c 'merge=$(git find-merge $0 $1) && [ -n \"$merge\" ] && git show $merge'"
     merges-between = "!f() { a=$1; b=$2; shift; shift; (echo '\nHASH\t\t\tDATE\t\t\tMERGER\t\t\tTITLE\n'; git log \"$a\"..\"$b\" --grep='See merge request' --pretty=format:'_MERGE__%h__%cr__%cn__%b' --reverse \"$@\" | awk -F__ '/_MERGE_/ {print $2 \"\t\t\t\" $3 \"\t\t\t\" $4 \"\t\t\t\" $5}'; echo) | column -ents $'\t'; }; f"
     showtags = "!f() { git for-each-ref refs/tags/${1:-} --format '%(objecttype) %(taggerdate:short): %(refname:short)' | awk '$1 == \"tag\" {$1=\"\"; print substr($0,2)}' | sort -r; }; f"
+[pull]
+	rebase = false
