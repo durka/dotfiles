@@ -6,6 +6,7 @@ clear control
 clear mod1
 keycode 37 = Alt_L Meta_L
 keycode 64 = Control_L
+keycode 108 = Control_L
 add control = Control_L
 add mod1 = Alt_L Meta_L Alt_R Meta_R
 
