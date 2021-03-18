@@ -19,7 +19,9 @@
 [interactive]
     diffFilter = diffr --colors refine-added:none:background:0x33,0x99,0x33:bold --colors refine-removed:none:background:0x99,0x33,0x33:bold
 [alias]
+    pushme = "push -u origin HEAD"
+    ndiff = "!f() { TAB=`printf '\t'`; COLUMNS=`stty size|cut -d' ' -f2`; git diff --name-status $1 | sort -k2 > /tmp/.tmpgitndiff ; git diff --stat=$COLUMNS,800 $1 |sed -e '$d' -e \"s/^ *//;s/ /${TAB}/\" | sort | join -t \"${TAB}\" -1 2 -2 1 -o 1.1,2.1,2.2 /tmp/.tmpgitndiff - | sed \"s/${TAB}/ /g\"; rm -f /tmp/.tmpgitndiff; }; f"
     find-merge = "!sh -c 'commit=$0 && branch=${1:-HEAD} && (git rev-list $commit..$branch --ancestry-path | cat -n; git rev-list $commit..$branch --first-parent | cat -n) | sort -k2 -s | uniq -f1 -d | sort -n | tail -1 | cut -f2'"
     show-merge = "!sh -c 'merge=$(git find-merge $0 $1) && [ -n \"$merge\" ] && git show $merge'"
-    merges-between = "!f() { (echo '\nHASH\t\t\tDATE\t\t\tMERGER\t\t\tTITLE\n'; git log \"$1\"..\"$2\" --grep='See merge request' --pretty=format:'_MERGE__%h__%cr__%cn__%b' --reverse | awk -F__ '/_MERGE_/ {print $2 \"\t\t\t\" $3 \"\t\t\t\" $4 \"\t\t\t\" $5}'; echo) | column -ents $'\t'; }; f"
-
+    merges-between = "!f() { a=$1; b=$2; shift; shift; (echo '\nHASH\t\t\tDATE\t\t\tMERGER\t\t\tTITLE\n'; git log \"$a\"..\"$b\" --grep='See merge request' --pretty=format:'_MERGE__%h__%cr__%cn__%b' --reverse \"$@\" | awk -F__ '/_MERGE_/ {print $2 \"\t\t\t\" $3 \"\t\t\t\" $4 \"\t\t\t\" $5}'; echo) | column -ents $'\t'; }; f"
+    showtags = "!f() { git for-each-ref refs/tags/${1:-} --format '%(objecttype) %(taggerdate:short): %(refname:short)' | awk '$1 == \"tag\" {$1=\"\"; print substr($0,2)}' | sort -r; }; f"
