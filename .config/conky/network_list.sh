@@ -2,23 +2,26 @@
 
 source $(dirname $0)/utilities.bash
 
-for line in $(ip addr | awk '-F[ /]+' '/(enp|wlp|ppp)[^ ]+$/ {print $NF "___" $3}')
+for line in $(ip addr | awk '-F[ /]+' '/(en|wlp|ppp|tun)[^ ]+$/ {print $NF "___" $3}')
 do
     [[ "$line" =~ (.*)___(.*) ]] || continue
     if=${BASH_REMATCH[1]}
     ip=${BASH_REMATCH[2]}
 
+    width=150
     if [[ $ip == "10.0.10."* ]]; then
-        ifn="$if\${goto 100}Exyn"
+        ifn="$if\${goto $width}Exyn"
     elif [[ $ip =~ 10\.(.*)\.0\. ]]; then
-        ifn="$if\${goto 100}PFM${BASH_REMATCH[1]}"
+        ifn="$if\${goto $width}PFM${BASH_REMATCH[1]}"
     elif [[ $ip == "192.168.2."* ]]; then
         ssid=$(iwgetid --raw $if)
         if [[ $ssid =~ exyn-Robot(.*) ]]; then
-            ifn="$if\${goto 100}R${BASH_REMATCH[1]}"
+            ifn="$if\${goto $width}R${BASH_REMATCH[1]}"
         else
-            ifn="$if\${goto 100}AP"
+            ifn="$if\${goto $width}AP"
         fi
+    elif [[ $if == "tun"* ]] || [[ $if == "ppp"* ]]; then
+        ifn="$if\${goto $width}VPN"
     else
         ifn=$if
     fi
@@ -28,6 +31,6 @@ do
     down=${BASH_REMATCH[1]}
     up=${BASH_REMATCH[2]}
 
-    echo "\${color}$ifn\${goto 165}$ip\${color grey}\${goto 300}Up:\$color $(si_prefix $up)Bps \${color grey}\${goto 430}- Down:\$color $(si_prefix $down)Bps\${color grey}"
+    echo "\${color}$ifn\${goto $(($width+65))}$ip\${color grey}\${goto $(($width+200))}Up:\$color $(si_prefix $up)Bps \${color grey}\${goto $(($width+330))}- Down:\$color $(si_prefix $down)Bps\${color grey}"
 done
 

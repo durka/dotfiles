@@ -4,13 +4,21 @@ calc() {
 }
 
 # takes a number of Kwhatevers and outputs nK or (n/1024)M or (n/1024/1024)G
+# pass zero for second arg to omit K/M/G
 si_prefix() {
     if [ $(calc "$1>(500*1024)" 0) -eq 1 ]; then
-        echo "$(calc "$1/1024/1024")G"
+        suffix=G
+        echo -n "$(calc "$1/1024/1024")"
     elif [ $(calc "$1>500" 0) -eq 1 ]; then
-        echo "$(calc "$1/1024")M"
+        echo -n "$(calc "$1/1024")"
+        suffix=M
     else
-        echo "$(calc "$1")K"
+        echo -n "$(calc "$1")"
+        suffix=K
+    fi
+    
+    if [ $# -eq 1 ] || [ $2 -ne 0 ]; then
+        echo $suffix
     fi
 }
 
