@@ -29,6 +29,8 @@ Bundle 'osyo-manga/vim-over'
 Bundle 'goldfeld/vim-seek'
 Bundle 'ConradIrwin/vim-bracketed-paste'
 Bundle 'junegunn/vim-easy-align'
+Bundle 'junegunn/fzf'
+Bundle 'junegunn/fzf.vim'
 Bundle 'tpope/vim-afterimage'
 Plugin 'rust-lang/rust.vim'
 Plugin 'chiphogg/vim-prototxt'
@@ -44,6 +46,10 @@ Plugin 'rhysd/vim-textobj-anyblock'
 " for vundle and vim-latex
 filetype plugin indent on
 
+" for YCM
+set encoding=utf-8
+let g:ycm_extra_conf_globlist = ["~/workspaces/*"]
+
 " for me
 set tabstop=4 shiftwidth=4 expandtab autoindent
 syntax on
@@ -51,6 +57,7 @@ colorscheme desert
 highlight clear SignColumn
 set iskeyword-=: " fix python syntax highlighting
 set mouse=a
+set wildmode=list:longest,full " stop at ambiguous completions, like bash
 if has("osx")
     function! VisualSay() range
         let n = @n
